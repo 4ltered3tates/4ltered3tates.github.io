@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Altered States — Support</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Oxanium:wght@300;400;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:    #0b0a18;
+      --panel:   rgba(18,16,31,0.82);
+      --border:  rgba(139,92,246,0.25);
+      --pink:    #f472b6;
+      --cyan:    #22d3ee;
+      --lavender:#a78bfa;
+      --blush:   #fde8f0;
+      --text:    #d1c9e8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      color: var(--text);
+      font-family: 'Oxanium', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    .bg-image {
+      position: fixed;
+      inset: 0;
+      z-index: -2;
+      overflow: hidden;
+    }
+
+    .bg-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom;
+      transform: scale(1.06) translateX(-1.5%);
+      transform-origin: center bottom;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(8, 7, 18, 0.72);
+      z-index: -1;
+    }
+
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.07) 2px,
+        rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 0 24px 80px;
+    }
+
+    header {
+      text-align: center;
+      padding: 64px 0 48px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 56px;
+    }
+
+    .app-icon {
+      width: 100px;
+      height: 100px;
+      border-radius: 22px;
+      overflow: hidden;
+      display: inline-block;
+      margin-bottom: 20px;
+      box-shadow:
+        0 0 0 1.5px rgba(167,139,250,0.5),
+        0 0 32px rgba(167,139,250,0.3),
+        0 8px 32px rgba(0,0,0,0.6);
+    }
+
+    .app-icon img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    h1 {
+      font-family: 'VT323', monospace;
+      font-size: clamp(2.4rem, 6vw, 3.6rem);
+      color: var(--blush);
+      letter-spacing: 0.06em;
+      text-shadow: 0 0 18px rgba(244,114,182,0.45);
+      line-height: 1;
+      margin-bottom: 10px;
+    }
+
+    .tagline {
+      font-size: 0.85rem;
+      color: var(--lavender);
+      letter-spacing: 0.12em;
+      text-transform: lowercase;
+    }
+
+    nav {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 28px;
+    }
+
+    nav a {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      text-decoration: none;
+      border: 1px solid rgba(34,211,238,0.35);
+      padding: 6px 16px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    nav a:hover { background: rgba(34,211,238,0.1); }
+
+    section { margin-bottom: 56px; }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    h2 {
+      font-family: 'VT323', monospace;
+      font-size: 1.9rem;
+      color: var(--blush);
+      margin-bottom: 14px;
+      letter-spacing: 0.04em;
+    }
+
+    p { margin-bottom: 12px; color: var(--text); font-size: 0.95rem; }
+
+    .faq-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    details summary {
+      cursor: pointer;
+      padding: 16px 20px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--blush);
+      list-style: none;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+
+    details summary::-webkit-details-marker { display: none; }
+
+    details summary::after {
+      content: '+';
+      font-family: 'VT323', monospace;
+      font-size: 1.4rem;
+      color: var(--cyan);
+      line-height: 1;
+    }
+
+    details[open] summary::after { content: '−'; }
+
+    details .answer {
+      padding: 14px 20px 16px;
+      font-size: 0.88rem;
+      color: var(--text);
+      border-top: 1px solid var(--border);
+    }
+
+    details .answer p { margin-bottom: 8px; }
+    details .answer p:last-child { margin-bottom: 0; }
+
+    .contact-card {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 28px 24px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .contact-icon {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      background: rgba(244,114,182,0.12);
+      border: 1px solid rgba(244,114,182,0.35);
+      flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+
+    .contact-icon svg { width: 20px; height: 20px; stroke: var(--pink); fill: none; }
+
+    .contact-body p { font-size: 0.88rem; margin-bottom: 8px; }
+
+    .contact-body a {
+      color: var(--pink);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+    }
+
+    .contact-body a:hover { text-decoration: underline; }
+
+    .response-note {
+      display: inline-block;
+      margin-top: 10px;
+      font-size: 0.75rem;
+      color: var(--lavender);
+      letter-spacing: 0.08em;
+    }
+
+    .privacy-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 10px;
+      margin-top: 4px;
+    }
+
+    .privacy-item {
+      background: var(--panel);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 14px 16px;
+      font-size: 0.82rem;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .privacy-item .pi-label {
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 4px;
+    }
+
+    footer {
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      text-align: center;
+      font-size: 0.75rem;
+      color: var(--lavender);
+      letter-spacing: 0.06em;
+    }
+
+    .top-strip {
+      height: 3px;
+      background: linear-gradient(90deg, var(--pink), var(--lavender), var(--cyan));
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100;
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-image"><img src="SplashBG.png" alt="" /></div>
+<div class="bg-overlay"></div>
+<div class="top-strip"></div>
+
+<div class="container">
+
+  <header>
+    <div class="app-icon">
+      <img src="AppIconArt.png" alt="Altered States app icon" />
+    </div>
+    <h1>ALTERED STATES</h1>
+    <p class="tagline">// system korrupted · reality altered //</p>
+    <nav>
+      <a href="#faq">FAQ</a>
+      <a href="#contact">Contact</a>
+      <a href="#privacy">Privacy</a>
+    </nav>
+  </header>
+
+  <section id="about">
+    <div class="section-label">About</div>
+    <h2>CAMERA EFFECTS STUDIO</h2>
+    <p>Altered States is a real-time camera effects app for iPhone. Layer audio-reactive shaders, mix live video with imported media, and export your creations — all with a Y2K cyberpunk aesthetic.</p>
+    <p>Need help? Browse the FAQ below or reach out directly and we'll get back to you.</p>
+  </section>
+
+  <section id="faq">
+    <div class="section-label">FAQ</div>
+    <h2>COMMON QUESTIONS</h2>
+
+    <div class="faq-item">
+      <details>
+        <summary>How do I add effects to my camera feed?</summary>
+        <div class="answer">
+          <p>Tap any effect chip in the bottom panel to add it to your active layer. You can stack up to 5 effects per layer and adjust each effect's parameters using the sliders that appear.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>How do I make effects react to music or sound?</summary>
+        <div class="answer">
+          <p>Tap the audio react button (waveform icon) on the left side to enable audio reactivity. Once active, use the Band Mapping panel to assign specific frequency bands (bass, mid, high) to individual effect parameters.</p>
+          <p>You can also adjust the sensitivity slider to control how strongly the audio drives the effect.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>How do I add multiple layers?</summary>
+        <div class="answer">
+          <p>Tap the layer panel on the right side of the screen and use the + button to add a new layer. You can import a photo or video, or use the live camera as a source. Each layer has its own effect chain, opacity, and blend mode.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>How do I export or save my creation?</summary>
+        <div class="answer">
+          <p>Tap the record button to capture a video, or use the photo button to save a still frame. Exports save directly to your Camera Roll. Free users receive 3 exports before being prompted to upgrade to Pro.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>What does the Pro subscription include?</summary>
+        <div class="answer">
+          <p>Pro unlocks unlimited exports, all effects, full-resolution output, and unlimited preset slots. Subscriptions are available monthly or annually and can be managed at any time in the App Store.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>How do I cancel or manage my subscription?</summary>
+        <div class="answer">
+          <p>Subscriptions are managed through the App Store. Go to <strong>Settings → Apple ID → Subscriptions</strong> on your iPhone to view, change, or cancel at any time. Cancellations take effect at the end of the current billing period.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>How do I restore a purchase on a new device?</summary>
+        <div class="answer">
+          <p>Open the app and go to <strong>Settings → Restore Purchases</strong>. Make sure you are signed in with the same Apple ID that was used for the original purchase.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>The app is asking for camera or microphone permission — is that safe?</summary>
+        <div class="answer">
+          <p>Camera access is required to display your live feed and apply effects. Microphone access is only used for the audio reactivity feature — to analyse frequency data locally on-device and drive effect parameters. No audio is ever recorded or transmitted.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>Why does the app look dark or show "NO SIGNAL"?</summary>
+        <div class="answer">
+          <p>This usually means camera permission has not been granted. Go to <strong>Settings → Altered States → Camera</strong> and make sure it is set to <strong>Allow</strong>, then relaunch the app.</p>
+        </div>
+      </details>
+    </div>
+
+    <div class="faq-item">
+      <details>
+        <summary>My presets disappeared after reinstalling — can I recover them?</summary>
+        <div class="answer">
+          <p>Presets are stored locally on your device. Uninstalling the app removes all local data. We recommend using Sign in with Apple to back up and restore your presets across devices in a future update.</p>
+        </div>
+      </details>
+    </div>
+
+  </section>
+
+  <section id="contact">
+    <div class="section-label">Contact</div>
+    <h2>GET IN TOUCH</h2>
+    <p>If your question isn't answered above, send us an email and we'll respond as soon as we can.</p>
+
+    <div class="contact-card">
+      <div class="contact-icon">
+        <svg viewBox="0 0 24 24" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="2" y="4" width="20" height="16" rx="2"/>
+          <polyline points="2,4 12,13 22,4"/>
+        </svg>
+      </div>
+      <div class="contact-body">
+        <p>Email us at</p>
+        <a href="mailto:4ltered3tates@gmail.com">4ltered3tates@gmail.com</a>
+        <br/>
+        <span class="response-note">// we aim to respond within 48 hours //</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="privacy">
+    <div class="section-label">Privacy</div>
+    <h2>PRIVACY POLICY</h2>
+    <p>Altered States is designed with privacy in mind. We collect and store as little as possible.</p>
+
+    <div class="privacy-grid">
+      <div class="privacy-item">
+        <div class="pi-label">Data collected</div>
+        Your Apple ID user identifier (if you sign in). No name or email is stored unless Apple provides it on first sign-in.
+      </div>
+      <div class="privacy-item">
+        <div class="pi-label">Camera &amp; Mic</div>
+        Used entirely on-device for live effects and audio reactivity. Never recorded to our servers.
+      </div>
+      <div class="privacy-item">
+        <div class="pi-label">Analytics</div>
+        No third-party analytics SDKs are included. We do not track usage behaviour.
+      </div>
+      <div class="privacy-item">
+        <div class="pi-label">Storage</div>
+        Presets and settings are stored locally in the app's sandboxed UserDefaults. Nothing is uploaded to external servers.
+      </div>
+      <div class="privacy-item">
+        <div class="pi-label">Advertising</div>
+        The app contains no advertising and no ad networks.
+      </div>
+      <div class="privacy-item">
+        <div class="pi-label">Data deletion</div>
+        Uninstalling the app removes all locally stored data. To request deletion of your sign-in identifier, email us.
+      </div>
+    </div>
+
+    <p style="margin-top:20px; font-size:0.82rem; color: var(--lavender);">
+      This policy may be updated from time to time. Last updated: June 2026.
+      Questions? Contact us at <a href="mailto:4ltered3tates@gmail.com" style="color:var(--pink);">4ltered3tates@gmail.com</a>.
+    </p>
+  </section>
+
+  <footer>
+    <p>© 2026 Altered States</p>
+  </footer>
+
+</div>
+</body>
+</html>
